@@ -1,0 +1,85 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
+      "role": "admin",
+      "email": "admin@example.com"
+    },
+    {
+      "id": "2",
+      "username": "user",
+      "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
+      "role": "user",
+      "email": "user@example.com"
+    },
+    {
+      "id": "8af0",
+      "username": "John",
+      "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
+      "email": "johnay@example.com",
+      "role": "user"
+    },
+    {
+      "id": "78cc",
+      "username": "John",
+      "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
+      "email": "johnray@example.com",
+      "role": "user"
+    },
+    {
+      "id": "34",
+      "username": "amir",
+      "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
+      "role": "user",
+      "email": "amir@example.com"
+    },
+    {
+      "id": "0191",
+      "username": "ray",
+      "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
+      "role": "admin",
+      "email": "ray@example.com"
+    },
+    {
+      "id": "f733",
+      "username": "jake",
+      "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
+      "role": "admin",
+      "email": "jake@example.com"
+    },
+    {
+      "id": "41c6",
+      "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
+      "role": "user",
+      "email": "jay@example.com"
+    },
+    {
+      "id": "9cc2",
+      "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
+      "role": "user",
+      "email": "rajordany@example.com"
+    },
+    {
+      "id": "bcba",
+      "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
+      "role": "user",
+      "email": "jayson@example.com"
+    },
+    {
+      "id": "d56e",
+      "username": "jaysonraye",
+      "password": "$2a$10$WHj9VD8R0D5fa0l9AdbMe.mBqWj8xHNZm7gjlqSVS6ANbJLOQrtRu",
+      "role": "user",
+      "email": "jaysonraye@excel.com"
+    },
+    {
+      "id": "c144",
+      "username": "rayejaye",
+      "password": "$2a$10$3iLVtZK9DPnDNgvEA8WdgOVKNxBycOanHkcYUxexwh5UjTPFkijR6",
+      "role": "user",
+      "email": "rayejaye@gmail.com"
+    }
+  ]
+}
