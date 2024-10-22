@@ -10,12 +10,8 @@ const Logout = () => {
   useEffect(() => {
     const handleLogout = async () => {
       try {
-        // Make a POST request to the Express API to log out
         api.post('/auth/logout', {});
-
-        // Call the logout function from the AuthContext to reset the auth state
         logout();
-
         navigate('/');
       } catch (error) {
         console.error('Error logging out:', error);

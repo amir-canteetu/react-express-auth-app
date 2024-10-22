@@ -7,9 +7,11 @@ export const useAuth  = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
 
   const [authState, setAuthState] = useState({
-      isAuthenticated: false,
-      user: null
+          isAuthenticated: false,
+          accessToken: null,  
+          user: null,
   });
+
   const [isLoading, setisLoading] = useState(true);
 
   useEffect(() => {
@@ -19,13 +21,15 @@ export const AuthProvider = ({ children }) => {
           const response = await api.get('/auth/verify-token');
           setAuthState({
             isAuthenticated: true,
-            user: response.data.user
+            user: response.data.user,
+            accessToken: response.data.accessToken
           });
           setisLoading(false);
         } catch (err) {
           setAuthState({
             isAuthenticated: false,
-            user: null
+            user: null,
+            accessToken: null
           });
           setisLoading(false);
         }
@@ -33,11 +37,16 @@ export const AuthProvider = ({ children }) => {
       checkAuth();
   }, []);
 
-  const login = ({ id, username, role }) => {
+  const login = (userData) => {
+
+    const { accessToken, id, username, role, email  }  = userData;
+    const user = { id, username, role, email };
+    
         try {
           setAuthState({
             isAuthenticated: true,
-            user: { id, username, role }
+            accessToken:  accessToken,
+            user: user
           });
         } catch (err) {
           throw err;
@@ -48,7 +57,8 @@ export const AuthProvider = ({ children }) => {
     try {
       setAuthState({
         isAuthenticated: false,
-        user: null
+        user: null,
+        accessToken: null
       });
     } catch (err) {
       throw err;

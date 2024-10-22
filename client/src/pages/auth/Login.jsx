@@ -53,8 +53,9 @@ export default function Login() {
           setisLoading(true);
           try {
             const res = await api.post( "/auth/login", values);
-            const { id, username, role  } = res.data.user;
-            login( { id, username, role } );    
+            const { accessToken, user  }  = res.data;
+            const userData                = { ...user, accessToken };
+            login(userData);    
             navigate('/app');
           } catch (err) {
             const errorMessages = err?.response?.data?.errors || [{ msg: "Something went wrong. Please try again." }];
