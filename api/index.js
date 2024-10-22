@@ -23,6 +23,15 @@ app.use(cors({ origin: requestOrigin, credentials: true }));
 const privateKey = fs.readFileSync('config/ec_private.pem', 'utf8');
 const publicKey = fs.readFileSync('config/ec_public.pem', 'utf8');
 
+// Helper function to generate tokens
+const generateAccessToken = (user) => {
+  return jwt.sign({ id: user.id, username: user.username, role: user.role }, privateKey, { algorithm: 'ES256', expiresIn: '15m' });
+};
+
+const generateRefreshToken = (user) => {
+  return jwt.sign({ id: user.id, username: user.username, role: user.role }, privateKey, { algorithm: 'ES256', expiresIn: '7d' });
+};
+
 app.post('/auth/register', async (req, res) => {
 
     const { username, password, role, email } = req.body;
@@ -55,36 +64,60 @@ app.post('/auth/register', async (req, res) => {
 });
 
 app.post('/auth/login', async (req, res) => {
-    const { email, password } = req.body;
+  const { email, password } = req.body;
 
-    // Fetch users from the mock JSON server
-    const { data: users } = await axios.get(apiUserEndpoint);
-    const user = users.find(u => u.email === email);
+  const { data: users } = await axios.get(apiUserEndpoint);
+  const user = users.find(u => u.email === email);
 
-    if (!user) {
-      return res.status(404).send('User not found');
+  if (!user) {
+    return res.status(404).send('api/index.js:User not found');
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
+    return res.status(401).send('Invalid credentials');
+  }
+
+  const accessToken   = generateAccessToken(user);
+  const refreshToken  = generateRefreshToken(user);
+
+  // Send refresh token as an HTTP-only, secure cookie
+  res.cookie('refresh-token', refreshToken, {
+    httpOnly: true, // Cookie cannot be accessed through the client-side JavaScript
+    secure: process.env.NODE_ENV === 'production', // Only set secure to true in production (HTTPS)
+    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', 
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  });
+
+  // Send access token in response body
+  const userWithoutPsswd = _.pick(user, ['id', 'username', 'role', 'email']);
+  res.json({ 
+    message: 'Login successful', 
+    accessToken, 
+    user: userWithoutPsswd
+  });
+});
+
+
+app.post('/auth/refresh-token', (req, res) => {
+  const refreshToken = req.cookies['refresh-token'];
+
+  if (!refreshToken) {
+    return res.status(401).json({ message: 'No refresh token provided' });
+  }
+
+  jwt.verify(refreshToken, publicKey, { algorithms: ['ES256'] }, (err, user) => {
+    if (err) {
+      return res.status(403).json({ message: 'Invalid or expired refresh token' });
     }
 
-    // Compare the hashed password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const newAccessToken = generateAccessToken(user);
 
-    if (!isPasswordValid) {
-      return res.status(401).send('Invalid credentials');
-    }
-
-    // Create JWT token with user info
-    const token = jwt.sign({ id: user.id, username:user.username, role: user.role }, privateKey, { algorithm: 'ES256', expiresIn: '1h' });
-
-    // Send token as HTTP-only, secure cookie
-    res.cookie('auth-token', token, {
-      httpOnly: true, //cookie cannot be accessed through the client-side js
-      secure: process.env.NODE_ENV === 'production', // Only set to true in production (when using HTTPS)
-      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // Use 'None' only in production, otherwise 'Lax'
-      maxAge: 3600000, // 1 hour
+    res.json({
+      accessToken: newAccessToken
     });
-
-    const userWithoutPsswd = _.pick(user, ['id','username','role','email']);
-    res.json({ message: 'Login successful', user: userWithoutPsswd });
+  });
 });
 
 const verifyToken = (req, res, next) => {
@@ -112,8 +145,8 @@ app.get('/auth/verify-token', verifyToken, (req, res) => {
 });
 
 app.post('/auth/logout', (req, res) => {
-    res.clearCookie('auth-token');
-    res.json({ message: 'Logged out successfully'});
+  res.clearCookie('refresh-token'); // Clear refresh token cookie on logout
+  res.json({ message: 'Logged out successfully' });
 });
 
 app.listen(PORT, () => {

@@ -26,7 +26,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import Copyright from "../../components/global-components/copyright";
-import api from "../../apiService";
+import api from "../../api/apiService";
 
 export default function Register() {
 
