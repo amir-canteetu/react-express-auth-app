@@ -25,7 +25,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import Copyright from "../../components/global-components/copyright";
-import api from "../../api/apiService";
+import { axiosInstance } from  "../../api/apiService";
 
 export default function Login() {
 
@@ -46,13 +46,13 @@ export default function Login() {
           email: "",          
         },
         validationSchema: Yup.object({
-          password:     Yup.string().required("Required"),
-          email:        Yup.string().email("Invalid email address").required("Required"),          
+          password:       Yup.string().required("Required"),
+          email:          Yup.string().email("Invalid email address").required("Required"),          
         }),
         onSubmit: async (values) => {
           setisLoading(true);
           try {
-            const res = await api.post( "/auth/login", values);
+            const res = await axiosInstance.post( "/auth/login", values);
             const { accessToken, user  }  = res.data;
             const userData                = { ...user, accessToken };
             login(userData);    

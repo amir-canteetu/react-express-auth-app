@@ -26,7 +26,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import Copyright from "../../components/global-components/copyright";
-import api from "../../api/apiService";
+import { axiosInstance } from  "../../api/apiService";
 
 export default function Register() {
 
@@ -58,7 +58,7 @@ export default function Register() {
         onSubmit: async (values) => {
           setisLoading(true);
           try {
-            const res                       = await api.post("/auth/register", values );
+            const res                       = await axiosInstance.post("/auth/register", values );
             const { id, username, role  }   = res.data.user;
             login( { id, username, role } );    
             navigate('/app');

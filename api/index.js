@@ -49,18 +49,24 @@ app.post('/auth/register', async (req, res) => {
     const user = users.find(u => u.email === email);
 
     // Create JWT token with user info
-    const token = jwt.sign({ id: user.id, username:user.username, role: user.role }, privateKey, { algorithm: 'ES256', expiresIn: '1h' });
+    const accessToken   = generateAccessToken(user);
+    const refreshToken  = generateRefreshToken(user);
 
-    // Send token as HTTP-only, secure cookie
-    res.cookie('auth-token', token, {
-      httpOnly: true, //cookie cannot be accessed through the client-side js
-      secure: process.env.NODE_ENV === 'production', // Only set to true in production (when using HTTPS)
-      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // Use 'None' only in production, otherwise 'Lax'
-      maxAge: 3600000, // 1 hour
+    // Send refresh token as an HTTP-only, secure cookie
+    res.cookie('refresh-token', refreshToken, {
+      httpOnly: true, // Cookie cannot be accessed through the client-side JavaScript
+      secure: process.env.NODE_ENV === 'production', // Only set secure to true in production (HTTPS)
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', 
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
     const userWithoutPsswd = _.pick(user, ['id','username','role','email']);
-    res.status(201).json({ message: 'User registered successfully', user: userWithoutPsswd });
+    res.json({ 
+      message: 'Login successful', 
+      accessToken, 
+      user: userWithoutPsswd
+    });
+
 });
 
 app.post('/auth/login', async (req, res) => {
@@ -115,7 +121,8 @@ app.post('/auth/refresh-token', (req, res) => {
     const newAccessToken = generateAccessToken(user);
 
     res.json({
-      accessToken: newAccessToken
+      accessToken: newAccessToken,
+      user: user
     });
   });
 });

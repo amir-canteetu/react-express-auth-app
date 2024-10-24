@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import api from '../api/apiService';
+import { axiosInstance } from '../api/apiService';
 
 const AuthContext     = createContext();
 export const useAuth  = () => useContext(AuthContext);
@@ -18,14 +18,15 @@ export const AuthProvider = ({ children }) => {
 
       const checkAuth = async () => { 
         try {
-          const response = await api.get('/auth/verify-token');
+          const response = await axiosInstance.post('/auth/refresh-token', {}, { withCredentials: true, });
           setAuthState({
             isAuthenticated: true,
+            accessToken:  response.data.accessToken,
             user: response.data.user,
-            accessToken: response.data.accessToken
-          });
+          });        
           setisLoading(false);
         } catch (err) {
+           
           setAuthState({
             isAuthenticated: false,
             user: null,
@@ -41,7 +42,7 @@ export const AuthProvider = ({ children }) => {
 
     const { accessToken, id, username, role, email  }  = userData;
     const user = { id, username, role, email };
-    
+
         try {
           setAuthState({
             isAuthenticated: true,
@@ -65,5 +66,19 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  return <AuthContext.Provider value={{ ...authState, isLoading, login, logout }}>{children}</AuthContext.Provider>;
+  const refreshToken = async () => {
+    try {
+      const response = await axiosInstance.post('/auth/refresh-token', {}, { withCredentials: true, });
+      setAuthState(prevState => ({
+        ...prevState,
+        accessToken: response.data.accessToken,
+      }));
+      return response.data.accessToken;
+    } catch (error) {
+      console.error("Token refresh failed", error);
+      logout(); 
+    }
+  };  
+
+  return <AuthContext.Provider value={{ ...authState, refreshToken, isLoading, login, logout }}>{children}</AuthContext.Provider>;
 };

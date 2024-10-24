@@ -73,6 +73,20 @@
       "password": "$2a$10$3iLVtZK9DPnDNgvEA8WdgOVKNxBycOanHkcYUxexwh5UjTPFkijR6",
       "role": "user",
       "email": "rayejaye@gmail.com"
+    },
+    {
+      "id": "c60e",
+      "username": "james_reed",
+      "password": "$2a$10$MIaXpbsQ6.8FpMggoAnbvul0hwc0sBL5V.t4TPB.978ycNYYfCiTG",
+      "role": "admin",
+      "email": "james_reed@example.com"
+    },
+    {
+      "id": "5444",
+      "username": "jack_rayn",
+      "password": "$2a$10$Tv3D2w3dNr13t.MvZW/P1uMMMVQNy/i0fTGIHpqR4JTFSEAeGCIye",
+      "role": "user",
+      "email": "jack_rayn@example.com"
     }
   ]
 }
