@@ -12,7 +12,7 @@ export default function HomeAppBar() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            SourcePro
+          React-Auth-Context-Demo
           </Typography>
           <Button color="inherit">
               <Link to={`/login`} style={{ textDecoration: 'none', color:"#fff" }}>

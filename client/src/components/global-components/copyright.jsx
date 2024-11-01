@@ -10,7 +10,7 @@ export default function  Copyright(props) {
         {...props}
       >
         {"Copyright © "}
-        <Link to={`/`}>SourcePro {new Date().getFullYear()}</Link>
+        <Link to={`/`}>React-Auth-Context-Demo {new Date().getFullYear()}</Link>
       </Typography>
     );
   }

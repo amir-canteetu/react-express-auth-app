@@ -1,74 +1,57 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import { axiosInstance } from '../api/apiService';
 
-const AuthContext     = createContext();
-export const useAuth  = () => useContext(AuthContext);
+const AuthContext = createContext();
+export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-
   const [authState, setAuthState] = useState({
-          isAuthenticated: false,
-          accessToken: null,  
-          user: null,
+    isAuthenticated: false,
+    accessToken: null,
+    user: null,
   });
 
-  const [isLoading, setisLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true);
+
+  const checkAuth = async () => {
+    try {
+      const response = await axiosInstance.post('/auth/refresh-token', {}, { withCredentials: true });
+      setAuthState({
+        isAuthenticated: true,
+        accessToken: response.data.accessToken,
+        user: response.data.user,
+      });
+    } catch (error) {
+      setAuthState({ isAuthenticated: false, user: null, accessToken: null });
+    } finally {
+      setAuthLoading(false);
+    }
+  };
 
   useEffect(() => {
-
-      const checkAuth = async () => { 
-        try {
-          const response = await axiosInstance.post('/auth/refresh-token', {}, { withCredentials: true, });
-          setAuthState({
-            isAuthenticated: true,
-            accessToken:  response.data.accessToken,
-            user: response.data.user,
-          });        
-          setisLoading(false);
-        } catch (err) {
-           
-          setAuthState({
-            isAuthenticated: false,
-            user: null,
-            accessToken: null
-          });
-          setisLoading(false);
-        }
-      };
-      checkAuth();
+    checkAuth();
   }, []);
 
   const login = (userData) => {
-
-    const { accessToken, id, username, role, email  }  = userData;
-    const user = { id, username, role, email };
-
-        try {
-          setAuthState({
-            isAuthenticated: true,
-            accessToken:  accessToken,
-            user: user
-          });
-        } catch (err) {
-          throw err;
-        }
+    const { accessToken, id, username, role, email } = userData;
+    setAuthState({
+      isAuthenticated: true,
+      accessToken,
+      user: { id, username, role, email },
+    });
   };
 
   const logout = () => {
-    try {
-      setAuthState({
-        isAuthenticated: false,
-        user: null,
-        accessToken: null
-      });
-    } catch (err) {
-      throw err;
-    }
+    setAuthState({
+      isAuthenticated: false,
+      user: null,
+      accessToken: null,
+    });
   };
 
   const refreshToken = async () => {
     try {
-      const response = await axiosInstance.post('/auth/refresh-token', {}, { withCredentials: true, });
+      const response = await axiosInstance.post('/auth/refresh-token', {}, { withCredentials: true });
       setAuthState(prevState => ({
         ...prevState,
         accessToken: response.data.accessToken,
@@ -76,9 +59,14 @@ export const AuthProvider = ({ children }) => {
       return response.data.accessToken;
     } catch (error) {
       console.error("Token refresh failed", error);
-      logout(); 
+      logout();
     }
-  };  
+  };
 
-  return <AuthContext.Provider value={{ ...authState, refreshToken, isLoading, login, logout }}>{children}</AuthContext.Provider>;
+  const value = useMemo(
+    () => ({ ...authState, refreshToken, authLoading, login, logout }),
+    [authState, refreshToken, authLoading, login, logout]
+  );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
