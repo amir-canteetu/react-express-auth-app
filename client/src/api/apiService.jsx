@@ -1,8 +1,8 @@
 import axios from 'axios';
-import config from '../config';
+import appConfig from '../config';
 
 export const axiosInstance = axios.create({
-  baseURL: config.apiBaseUrl,  
+  baseURL: appConfig.apiBaseUrl,  
   withCredentials: true
 });
 
