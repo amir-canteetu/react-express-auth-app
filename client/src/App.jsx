@@ -10,9 +10,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 export default function App() {
 
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, authLoading } = useAuth();
 
-  if (isLoading) {
+  if (authLoading) {
     return (    
     <>
       <Backdrop sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })} open={true}>

@@ -69,7 +69,7 @@ app.post('/auth/login', async (req, res) => {
         const user = users.find(u => u.email === email);
 
         if (!user) {
-          return res.status(404).send('api/index.js:User not found');
+          return res.status(404).send('User not found');
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);

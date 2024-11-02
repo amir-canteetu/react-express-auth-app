@@ -1,10 +1,12 @@
 import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import { axiosInstance } from '../api/apiService';
+import config from '../config';
 
-const AuthContext = createContext();
-export const useAuth = () => useContext(AuthContext);
+const AuthContext     = createContext();
+export const useAuth  = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
+
   const [authState, setAuthState] = useState({
     isAuthenticated: false,
     accessToken: null,
@@ -15,13 +17,14 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const response = await axiosInstance.post('/auth/refresh-token', {}, { withCredentials: true });
+      const response = await axiosInstance.post(config.refreshTokenEndpoint);
       setAuthState({
         isAuthenticated: true,
         accessToken: response.data.accessToken,
         user: response.data.user,
       });
     } catch (error) {
+      console.log("Error refreshing token: ", error);
       setAuthState({ isAuthenticated: false, user: null, accessToken: null });
     } finally {
       setAuthLoading(false);
@@ -51,7 +54,7 @@ export const AuthProvider = ({ children }) => {
 
   const refreshToken = async () => {
     try {
-      const response = await axiosInstance.post('/auth/refresh-token', {}, { withCredentials: true });
+      const response = await axiosInstance.post(config.refreshTokenEndpoint);
       setAuthState(prevState => ({
         ...prevState,
         accessToken: response.data.accessToken,
@@ -59,6 +62,7 @@ export const AuthProvider = ({ children }) => {
       return response.data.accessToken;
     } catch (error) {
       console.error("Token refresh failed", error);
+      console.error("response..", response);
       logout();
     }
   };

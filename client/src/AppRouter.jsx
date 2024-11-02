@@ -12,9 +12,9 @@ import Index from "./pages/Index";
 import App from "./App";
 
 const ProtectedRoute = ({ children }) => {
-    const { isAuthenticated, isLoading } = useAuth(); 
+    const { isAuthenticated, authLoading } = useAuth(); 
 
-    if (!isAuthenticated && !isLoading) {
+    if (!isAuthenticated && !authLoading) {
       return <Navigate to="/login" replace />;
     }
 
