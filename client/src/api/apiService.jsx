@@ -1,49 +1,64 @@
 import axios from 'axios';
 import appConfig from '../config';
+import { useAuth } from '../context/AuthContext';
 
 export const axiosInstance = axios.create({
-  baseURL: appConfig.apiBaseUrl,  
-  withCredentials: true
+  baseURL: appConfig.apiBaseUrl,
 });
 
-const api = (accessToken, refreshToken, logout) => {
+const useAxiosWithRefresh = () => {
+  const { accessToken, refreshToken, logout } = useAuth();
 
-  // Set up a request interceptor to attach the access token to each request
-  axiosInstance.interceptors.request.use(
-    (config) => {
-      if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
-      }
-      return config;
-    },
-    (error) => Promise.reject(error)
-  );
-
-  // Set up a response interceptor to handle token expiration
-  axiosInstance.interceptors.response.use(
-    (response) => response, // Just return the response if it's successful
-    async (error) => {
-      const originalRequest = error.config;
-
-      // If we get a 401 error, try to refresh the token
-      if (error.response && error.response.status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true; // Prevent infinite loops
-
-        try {
-          const newAccessToken = await refreshToken(); // Try to refresh token
-          originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-          return axiosInstance(originalRequest); // Retry the original request with the new token
-        } catch (refreshError) {
-          logout(); // Log out if the token refresh fails
-          return Promise.reject(refreshError);
+  // Attach the request interceptor only once and ensure it's updated when `accessToken` changes
+  useEffect(() => {
+    const requestInterceptor = axiosInstance.interceptors.request.use(
+      (config) => {
+        if (accessToken) {
+          config.headers.Authorization = `Bearer ${accessToken}`;
+          config.withCredentials = true;
         }
-      }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
 
-      return Promise.reject(error); // If not a 401 error, reject the error
-    }
-  );
+    return () => {
+      axiosInstance.interceptors.request.eject(requestInterceptor);
+    };
+  }, [accessToken]);
+
+  useEffect(() => {
+    const responseInterceptor = axiosInstance.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        const originalRequest = error.config;
+        
+        if (error.response?.status === 401 && !originalRequest._retry) {
+          originalRequest._retry = true;
+
+          try {
+            const newAccessToken = await refreshToken();
+            if (!newAccessToken) throw new Error("Token refresh failed");
+
+            originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+            return axiosInstance(originalRequest);
+          } catch (refreshError) {
+            console.error("Failed to refresh access token:", refreshError);
+            logout();
+            return Promise.reject(refreshError);
+          }
+        }
+        
+        return Promise.reject(error);
+      }
+    );
+
+    return () => {
+      axiosInstance.interceptors.response.eject(responseInterceptor);
+    };
+  }, [refreshToken, logout]);
 
   return axiosInstance;
 };
 
-export default api;
+export default useAxiosWithRefresh;

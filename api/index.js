@@ -7,6 +7,7 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import _ from 'lodash';
+import verifyToken from './middleware/authMiddleware';
 
 dotenv.config();
 const apiUserEndpoint   = process.env.APIUSERSURL || "http://localhost:3001/users";
@@ -30,6 +31,7 @@ const generateAccessToken = (user) => {
 const generateRefreshToken = (user) => {
   return jwt.sign({ id: user.id, username: user.username, role: user.role }, privateKey, { algorithm: 'ES256', expiresIn: '7d' });
 };
+
 
 app.post('/auth/register', async (req, res) => {
 
@@ -124,6 +126,18 @@ app.post('/auth/logout', (req, res) => {
         res.clearCookie('refresh-token'); // Clear refresh token cookie on logout
         res.json({ message: 'Logged out successfully' });
 });
+
+
+app.get('/app/profile', verifyToken, (req, res) => {
+  res.json({
+    message: `Hello, ${req.user.username}!`,
+    userId: req.user.id,
+    role: req.user.role,
+  });
+});
+
+
+
 
 app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);

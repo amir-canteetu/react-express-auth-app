@@ -52,7 +52,7 @@ export default function Login() {
         onSubmit: async (values) => {
           setisLoading(true);
           try {
-            const res = await axiosInstance.post( "/auth/login", values);
+            const res = await axiosInstance.post( "/auth/login", values, { withCredentials: true });
             const { accessToken, user  }  = res.data;
             const userData                = { ...user, accessToken };
             login(userData);    

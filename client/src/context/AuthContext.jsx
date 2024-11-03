@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const response = await axiosInstance.post(config.refreshTokenEndpoint);
+      const response = await axiosInstance.post(config.refreshTokenEndpoint, {}, { withCredentials: true });
       setAuthState({
         isAuthenticated: true,
         accessToken: response.data.accessToken,
