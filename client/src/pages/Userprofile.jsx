@@ -22,7 +22,16 @@ export default function Userprofile() {
         {profile ? (
           <>
             <p>Good day {profile.username}.</p>
-            <p>Your favourite colour is {profile.favColor}</p>
+            <p>Your favourite colour is               <span
+                style={{
+                  backgroundColor: profile.favColor,
+                  width: '20px',
+                  height: '20px',
+                  display: 'inline-block',
+                  marginLeft: '8px',
+                  borderRadius: '3px'
+                }}
+              ></span> {profile.favColor}</p>
             <p>This profile should be viewable by only the profile owner.</p>
           </>          
         ) : (
