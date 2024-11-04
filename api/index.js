@@ -7,17 +7,21 @@ import axios from 'axios';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import _ from 'lodash';
-import verifyToken from './middleware/authMiddleware';
+import morgan from 'morgan';
+import verifyToken from './middleware/authMiddleware.js';
 
 dotenv.config();
-const apiUserEndpoint   = process.env.APIUSERSURL || "http://localhost:3001/users";
-const requestOrigin     = process.env.CLIENT_URL || "http://localhost:5173";
-const PORT              = process.env.PORT || 3000;
-const app               = express();
+const apiUserEndpoint         = process.env.APIUSERSURL || "http://localhost:3001/users";
+const requestOrigin           = process.env.CLIENT_URL || "http://localhost:5173";
+const PORT                    = process.env.PORT || 3000;
+const accessTokenExpiresIn    = process.env.accessTokenExpiresIn || '15m'
+const refreshTokenExpiresIn   = process.env.refreshTokenExpiresIn || '7d'
+const app                     = express();
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ origin: requestOrigin, credentials: true }));
+app.use(morgan('combined'));
 
 // Load the private and public keys
 const privateKey  = fs.readFileSync('config/ec_private.pem', 'utf8');
@@ -25,11 +29,11 @@ const publicKey   = fs.readFileSync('config/ec_public.pem', 'utf8');
 
 // Helper function to generate tokens
 const generateAccessToken = (user) => {
-  return jwt.sign({ id: user.id, username: user.username, role: user.role }, privateKey, { algorithm: 'ES256', expiresIn: '15m' });
+  return jwt.sign({ id: user.id, username: user.username, role: user.role }, privateKey, { algorithm: 'ES256', expiresIn: accessTokenExpiresIn });
 };
 
 const generateRefreshToken = (user) => {
-  return jwt.sign({ id: user.id, username: user.username, role: user.role }, privateKey, { algorithm: 'ES256', expiresIn: '7d' });
+  return jwt.sign({ id: user.id, username: user.username, role: user.role }, privateKey, { algorithm: 'ES256', expiresIn: refreshTokenExpiresIn });
 };
 
 
@@ -128,16 +132,24 @@ app.post('/auth/logout', (req, res) => {
 });
 
 
-app.get('/app/profile', verifyToken, (req, res) => {
+app.get('/app/profile', verifyToken, async (req, res) => {
+
+  const id              = req.query.id;
+  const { data: users } = await axios.get(apiUserEndpoint);
+  const user            = users.find(u => u.id === id);  
+  if (!user) {
+    return res.status(404).send('User not found');
+  }  
+
   res.json({
-    message: `Hello, ${req.user.username}!`,
-    userId: req.user.id,
-    role: req.user.role,
+    message: `Hello, ${user.username}!`,
+    userId: user.id,
+    role: user.role,
+    favColor: user.favColor,
+    username: user.username
+
   });
 });
-
-
-
 
 app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);

@@ -8,7 +8,8 @@
     "express": "^4.21.0",
     "json-server": "^1.0.0-beta.3",
     "jsonwebtoken": "^9.0.2",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "morgan": "^1.10.0"
   },
   "scripts": {
     "start": "nodemon index.js"
