@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 const publicKeyPath = path.join(__dirname, '../config/ec_public.pem');
 const publicKey = fs.readFileSync(publicKeyPath, 'utf8');
 
-const verifyToken = (req, res, next) => {
+export const verifyToken = (req, res, next) => {
 
   const authHeader  = req.headers['authorization'];
   const token       = authHeader && authHeader.split(' ')[1]; 
@@ -28,4 +28,13 @@ const verifyToken = (req, res, next) => {
 
 };
 
-export default verifyToken;
+export const verifyRole = (role) => {
+  return (req, res, next) => {
+    if (!req.user || req.user.role !== role) {
+      return res.status(403).json({ message: 'Access forbidden: insufficient permissions' });
+    }
+    next();
+  };
+};
+
+

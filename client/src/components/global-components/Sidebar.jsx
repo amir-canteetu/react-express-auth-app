@@ -45,7 +45,6 @@ import {
             </>
           )}
 
-          {user.role === "user" && (
             <>
               <ListItem disablePadding>
                 <ListItemButton component="a">
@@ -56,7 +55,6 @@ import {
                 </ListItemButton>
               </ListItem>
             </>
-          )}
 
             <ListItem disablePadding>
               <ListItemButton component="a">

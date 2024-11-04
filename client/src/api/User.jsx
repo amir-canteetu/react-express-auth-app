@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import useAxiosWithRefresh from "../api/apiService";
+import useAxiosWithRefresh from "./apiService";
 import { useAuth } from "../context/AuthContext";
 
 export function useUserProfile() {

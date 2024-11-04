@@ -6,7 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/auth/Login";
 import Logout from "./pages/auth/Logout";
 import Register from "./pages/auth/Register";
-import Settings from "./pages/Settings";
+import AdminSettings from "./pages/AdminSettings";
 import Userprofile from "./pages/Userprofile";
 import Index from "./pages/Index";
 import App from "./App";
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
             },
             {
               path: "settings",
-              element: <Settings />,
+              element: <AdminSettings />,
             },
             {
               path: "profile",

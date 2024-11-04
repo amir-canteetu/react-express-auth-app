@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import _ from 'lodash';
 import morgan from 'morgan';
-import verifyToken from './middleware/authMiddleware.js';
+import {verifyToken, verifyRole} from './middleware/authMiddleware.js';
 
 dotenv.config();
 const apiUserEndpoint         = process.env.APIUSERSURL || "http://localhost:3001/users";
@@ -135,6 +135,10 @@ app.post('/auth/logout', (req, res) => {
 app.get('/app/profile', verifyToken, async (req, res) => {
 
   const id              = req.query.id;
+  if(id !== req.user.id) {
+    return res.status(403).json({ message: "Access forbidden: You cant view profiles you don't own." });
+  }
+
   const { data: users } = await axios.get(apiUserEndpoint);
   const user            = users.find(u => u.id === id);  
   if (!user) {
@@ -143,11 +147,21 @@ app.get('/app/profile', verifyToken, async (req, res) => {
 
   res.json({
     message: `Hello, ${user.username}!`,
-    userId: user.id,
-    role: user.role,
+    userId:   user.id,
+    role:     user.role,
     favColor: user.favColor,
     username: user.username
 
+  });
+});
+
+app.get('/app/settings', verifyToken, verifyRole('admin'), (req, res) => {
+  res.json({
+    message: "Welcome to the admin settings page!",
+    settings: {
+      theme: "dark",
+      notifications: true,
+    },
   });
 });
 

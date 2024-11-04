@@ -17,7 +17,7 @@
       "favColor": "#FF6F61"
     },
     {
-      "id": "8af0",
+      "id": "3",
       "username": "John",
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "email": "johnay@example.com",
@@ -25,7 +25,7 @@
       "favColor": "#2E8B57"
     },
     {
-      "id": "34",
+      "id": "4",
       "username": "amir",
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
@@ -33,7 +33,7 @@
       "favColor": "#F0A202"
     },
     {
-      "id": "0191",
+      "id": "5",
       "username": "ray",
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "admin",
@@ -41,7 +41,7 @@
       "favColor": "#8A4FFF"
     },
     {
-      "id": "f733",
+      "id": "6",
       "username": "al",
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "admin",
@@ -49,54 +49,54 @@
       "favColor": "#FFD700"
     },
     {
-      "id": "41c6",
+      "id": "7",
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
       "email": "mike@example.com",
       "favColor": "#4B0082"
     },
     {
-      "id": "9cc2",
+      "id": "8",
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
       "email": "alisonjordan@example.com",
       "favColor": "#FF7F50"
     },
     {
-      "id": "bcba",
+      "id": "9",
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
       "email": "jayson@example.com",
       "favColor": "#4682B4"
     },
     {
-      "id": "d56e",
+      "id": "10",
       "username": "jaysonraye",
-      "password": "$2a$10$WHj9VD8R0D5fa0l9AdbMe.mBqWj8xHNZm7gjlqSVS6ANbJLOQrtRu",
+      "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
       "email": "jaysonraye@example.com",
       "favColor": "#B22222"
     },
     {
-      "id": "c144",
+      "id": "11",
       "username": "rayejaye",
-      "password": "$2a$10$3iLVtZK9DPnDNgvEA8WdgOVKNxBycOanHkcYUxexwh5UjTPFkijR6",
+      "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
       "email": "rayejaye@example.com",
       "favColor": "#A25DC7"
     },
     {
-      "id": "c60e",
+      "id": "12",
       "username": "james_reed",
-      "password": "$2a$10$MIaXpbsQ6.8FpMggoAnbvul0hwc0sBL5V.t4TPB.978ycNYYfCiTG",
+      "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "admin",
       "email": "james_reed@example.com",
       "favColor": "#FFD1DC"
     },
     {
-      "id": "5444",
+      "id": "13",
       "username": "jack_rayn",
-      "password": "$2a$10$Tv3D2w3dNr13t.MvZW/P1uMMMVQNy/i0fTGIHpqR4JTFSEAeGCIye",
+      "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
       "email": "jack_rayn@example.com",
       "favColor": "#32CD32"
