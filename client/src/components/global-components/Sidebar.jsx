@@ -20,7 +20,7 @@ import {
     const { user } = useAuth(); 
 
     return (
-      <Box flex={1} p={2} sx={{ display: { xs: "none", sm: "block" }}}>
+      <Box sx={{ display: { xs: "none", sm: "block" }}}>
         <Box position="fixed"  backgroundColor="#f7f7f7" >
           <List>
             <ListItem disablePadding>
@@ -28,7 +28,7 @@ import {
                 <ListItemIcon>
                   <SpeedIcon />
                 </ListItemIcon>
-                <Link to={`/app/dashboard`} style={{ textDecoration: 'none' }}>Dashboard</Link>
+                <Link to={`/app`} style={{ textDecoration: 'none' }}>Dashboard</Link>
               </ListItemButton>
             </ListItem>
 

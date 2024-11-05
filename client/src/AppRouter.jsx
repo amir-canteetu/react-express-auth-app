@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 import { useAuth } from "./context/AuthContext"; 
 import ErrorPage from "./pages/error-page";
 import Home from "./pages/Home";
-import Dashboard from "./pages/Dashboard";
 import Login from "./pages/auth/Login";
 import Logout from "./pages/auth/Logout";
 import Register from "./pages/auth/Register";
@@ -52,10 +51,6 @@ const router = createBrowserRouter([
           errorElement: <ErrorPage />,  
           children: [
             { index: true, element: <Index /> },
-            {
-              path: "dashboard",
-              element: <Dashboard />,
-            },
             {
               path: "settings",
               element: <AdminSettings />,

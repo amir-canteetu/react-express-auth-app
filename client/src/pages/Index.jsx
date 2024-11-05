@@ -7,10 +7,10 @@ export default function Index() {
 
         <Container fixed>
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey', alignContent:"center", textAlign:"center" }}>
-                This is the Index page
+                <p>This is the Index/Dashboard page</p>
+                <p>This page should be viewable by all users.</p>
                 </Box>
       </Container>
-
 
   );
 }

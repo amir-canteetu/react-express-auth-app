@@ -29,7 +29,7 @@ export default function App() {
   return (
     <Box>
       <Navbar/>
-      <Stack direction="row">
+      <Stack direction="row"  sx={{ marginTop: 2 }}>
         <Sidebar/>
         <Outlet />
       </Stack>
