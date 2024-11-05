@@ -101,7 +101,7 @@ export default function Register() {
                         onChange={formik.handleChange}
                         value={formik.values.username}
                         onBlur={formik.handleBlur}
-                        error={formik.touched.username && formik.errors.username}
+                        error={formik.touched.username && !!formik.errors.username}
                         helperText={
                           formik.touched.username && formik.errors.username
                         } />
@@ -116,7 +116,7 @@ export default function Register() {
                         onChange={formik.handleChange}
                         value={formik.values.email}
                         onBlur={formik.handleBlur}
-                        error={formik.touched.email && formik.errors.email}
+                        error={formik.touched.email && !!formik.errors.email}
                         helperText={formik.touched.email && formik.errors.email}/>
 
 
@@ -130,7 +130,7 @@ export default function Register() {
                         onChange={formik.handleChange}
                         value={formik.values.password}
                         onBlur={formik.handleBlur}
-                        error={formik.touched.password && formik.errors.password}
+                        error={formik.touched.password && !!formik.errors.password}
                         helperText={formik.touched.password && formik.errors.password}    
                         slotProps={{
                           input: {
@@ -157,7 +157,7 @@ export default function Register() {
                       name="role"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      error={formik.touched.role && formik.errors.role}
+                      error={formik.touched.role && !!formik.errors.role}
                       helperText={formik.touched.role && formik.errors.role}                  
                       label="Please select your role">
                       {roleTypes.map((option) => (
@@ -181,13 +181,11 @@ export default function Register() {
                         </Box>
                       )}
                       <Grid container justifyContent="center">
-                        <Grid item>
-                          <Link to={`/login`}>                                
+                        <Link to={`/login`}>                                
                             <Typography variant="subtitle1" align="center" gutterBottom sx={{ display: 'block' }}>
                             Already have an account? Sign in
                             </Typography>     
-                          </Link>
-                        </Grid>
+                        </Link>
                       </Grid>                      
                       </Stack>  
                 </Box>

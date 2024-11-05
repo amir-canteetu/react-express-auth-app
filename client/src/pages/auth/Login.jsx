@@ -92,7 +92,7 @@ export default function Login() {
                         onChange={formik.handleChange}
                         value={formik.values.email}
                         onBlur={formik.handleBlur}
-                        error={formik.touched.email && formik.errors.email}
+                        error={formik.touched.email && !!formik.errors.email}
                         helperText={formik.touched.email && formik.errors.email}
                       />
 
@@ -106,7 +106,7 @@ export default function Login() {
                         onChange={formik.handleChange}
                         value={formik.values.password}
                         onBlur={formik.handleBlur}
-                        error={formik.touched.password && formik.errors.password}
+                        error={formik.touched.password && !!formik.errors.password}
                         helperText={formik.touched.password && formik.errors.password}    
                         slotProps={{
                           input: {
