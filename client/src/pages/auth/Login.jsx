@@ -54,8 +54,7 @@ export default function Login() {
           try {
             const res = await axiosInstance.post( "/auth/login", values, { withCredentials: true });
             const { accessToken, user  }  = res.data;
-            const userData                = { ...user, accessToken };
-            login(userData);    
+            login({ user, accessToken });    
             navigate('/app');
           } catch (err) {
             const errorMessages = err?.response?.data?.errors || [{ msg: "Something went wrong. Please try again." }];

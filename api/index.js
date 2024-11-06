@@ -96,7 +96,7 @@ app.post('/auth/login', async (req, res) => {
         });
 
         // Send access token in response body
-        const userWithoutPsswd = _.pick(user, ['id', 'username', 'role', 'email']);
+        const userWithoutPsswd = _.pick(user, ['id', 'username', 'role', 'email', 'notifications']);
         res.json({ 
           message: 'Login successful', 
           accessToken, 

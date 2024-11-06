@@ -6,7 +6,11 @@
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "admin",
       "email": "admin@example.com",
-      "favColor": "#1A535C"
+      "favColor": "#1A535C",
+      "notifications": {
+        "alerts": 6,
+        "mail": 15
+      }
     },
     {
       "id": "2",
@@ -14,7 +18,11 @@
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
       "email": "user@example.com",
-      "favColor": "#FF6F61"
+      "favColor": "#FF6F61",
+      "notifications": {
+        "alerts": 9,
+        "mail": 2
+      }
     },
     {
       "id": "3",
@@ -22,7 +30,11 @@
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "email": "johnay@example.com",
       "role": "user",
-      "favColor": "#2E8B57"
+      "favColor": "#2E8B57",
+      "notifications": {
+        "alerts": 8,
+        "mail": 7
+      }
     },
     {
       "id": "4",
@@ -30,7 +42,11 @@
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
       "email": "amir@example.com",
-      "favColor": "#F0A202"
+      "favColor": "#F0A202",
+      "notifications": {
+        "alerts": 7,
+        "mail": 3
+      }
     },
     {
       "id": "5",
@@ -38,7 +54,11 @@
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "admin",
       "email": "ray@example.com",
-      "favColor": "#8A4FFF"
+      "favColor": "#8A4FFF",
+      "notifications": {
+        "alerts": 12,
+        "mail": 7
+      }
     },
     {
       "id": "6",
@@ -46,28 +66,44 @@
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "admin",
       "email": "al@example.com",
-      "favColor": "#FFD700"
+      "favColor": "#FFD700",
+      "notifications": {
+        "alerts": 5,
+        "mail": 17
+      }
     },
     {
       "id": "7",
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
       "email": "mike@example.com",
-      "favColor": "#4B0082"
+      "favColor": "#4B0082",
+      "notifications": {
+        "alerts": 2,
+        "mail": 6
+      }
     },
     {
       "id": "8",
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
       "email": "alisonjordan@example.com",
-      "favColor": "#FF7F50"
+      "favColor": "#FF7F50",
+      "notifications": {
+        "alerts": 19,
+        "mail": 13
+      }
     },
     {
       "id": "9",
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
       "email": "jayson@example.com",
-      "favColor": "#4682B4"
+      "favColor": "#4682B4",
+      "notifications": {
+        "alerts": 2,
+        "mail": 1
+      }
     },
     {
       "id": "10",
@@ -75,7 +111,11 @@
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
       "email": "jaysonraye@example.com",
-      "favColor": "#B22222"
+      "favColor": "#B22222",
+      "notifications": {
+        "alerts": 11,
+        "mail": 14
+      }
     },
     {
       "id": "11",
@@ -83,7 +123,11 @@
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
       "email": "rayejaye@example.com",
-      "favColor": "#A25DC7"
+      "favColor": "#A25DC7",
+      "notifications": {
+        "alerts": 31,
+        "mail": 4
+      }
     },
     {
       "id": "12",
@@ -91,7 +135,11 @@
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "admin",
       "email": "james_reed@example.com",
-      "favColor": "#FFD1DC"
+      "favColor": "#FFD1DC",
+      "notifications": {
+        "alerts": 5,
+        "mail": 3
+      }
     },
     {
       "id": "13",
@@ -99,7 +147,11 @@
       "password": "$2a$10$xRltr79V66a0PaWqGKM62ebiYs.V9J1Vvv0k6a.CtDK.G0ym9BbzS",
       "role": "user",
       "email": "jack_rayn@example.com",
-      "favColor": "#32CD32"
+      "favColor": "#32CD32",
+      "notifications": {
+        "alerts": 3,
+        "mail": 7
+      }
     }
   ]
 }
