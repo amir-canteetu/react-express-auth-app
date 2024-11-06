@@ -15,7 +15,6 @@ const useAxiosWithRefresh = () => {
     const requestInterceptor = axiosInstance.interceptors.request.use(
 
       (config) => {
-        console.log("Request interceptor called with accessToken:", accessToken);
         if (accessToken) {
           config.headers.Authorization = `Bearer ${accessToken}`;
           config.withCredentials = true;
@@ -34,12 +33,10 @@ const useAxiosWithRefresh = () => {
     const responseInterceptor = axiosInstance.interceptors.response.use(
       (response) => response,
       async (error) => {
-        console.log("Response interceptor triggered", error.response?.status);
         const originalRequest = error.config;
         
         if (error.response?.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
-          console.log("Attempting token refresh...");
           try {
             const newAccessToken = await refreshToken();
             if (!newAccessToken) {throw new Error("Token refresh failed");}

@@ -24,7 +24,6 @@ export const AuthProvider = ({ children }) => {
         user: response.data.user,
       });
     } catch (error) {
-      console.log("Error refreshing token: ", error);
       setAuthState({ isAuthenticated: false, user: null, accessToken: null });
     } finally {
       setAuthLoading(false);

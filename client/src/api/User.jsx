@@ -14,7 +14,6 @@ export function useUserProfile() {
       try {
         setLoading(true);  
         const response = await axiosInstance.get('/app/profile', { params: { id: user.id } });
-        console.log('client/src/api/users.jsx response:', response);
         setProfile(response.data);
         setError(null);  
       } catch (err) {
