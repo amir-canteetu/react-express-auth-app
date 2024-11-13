@@ -152,6 +152,18 @@
         "alerts": 3,
         "mail": 7
       }
+    },
+    {
+      "id": "7b23",
+      "username": "ridwaan",
+      "password": "$2a$10$PBtpqAgS.idbFad/UUmQWuSjtIqkLVnIJE7KX8TuKFHeBq0No5t9y",
+      "role": "user",
+      "email": "ridwaan@gmail.com",
+      "favColor": "#32CD32",
+      "notifications": {
+        "alerts": 3,
+        "mail": 7
+      }
     }
   ]
 }

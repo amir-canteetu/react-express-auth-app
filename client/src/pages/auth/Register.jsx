@@ -59,8 +59,8 @@ export default function Register() {
           setisLoading(true);
           try {
             const res                       = await axiosInstance.post("/auth/register", values );
-            const { id, username, role  }   = res.data.user;
-            login( { id, username, role } );    
+            const { accessToken, user  }    = res.data;
+            login({ user, accessToken });    
             navigate('/app');
           } catch (err) {
             const errorMessages = err?.response?.data?.errors || [{ msg: "Something went wrong. Please try again." }];
