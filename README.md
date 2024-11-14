@@ -13,6 +13,14 @@ This application implements a robust role-based authentication system using JSON
     - [Installation](#installation)
   - [Environment Variables](#environment-variables)
     - [Backend `.env`](#backend-env)
+  - [Usage](#usage)
+    - [Starting the Backend](#starting-the-backend)
+    - [Starting the Frontend](#starting-the-frontend)
+  - [Endpoints](#endpoints)
+    - [Backend API](#backend-api)
+  - [Authentication Flow](#authentication-flow)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 ## Features
 
@@ -66,6 +74,7 @@ NODE_ENV="development"
 CLIENT_URL="http://localhost:5173"
 accessTokenExpiresIn="15m"
 refreshTokenExpiresIn="7d"
+```
 
 ## Usage
 
